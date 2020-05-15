@@ -63,6 +63,10 @@ public class PasswordGeneratorGui extends JFrame {
 		contentPane.add(southPanel, BorderLayout.SOUTH);
 	}
 
+	/*
+	 * This creates the south panel
+	 * that houses the copy button
+	 */
 	private JPanel createSouthPanel() {
 		JPanel southPanel = new JPanel();
 		
@@ -79,6 +83,10 @@ public class PasswordGeneratorGui extends JFrame {
 		return southPanel;
 	}
 
+	/*
+	 * Create the center panel that displays 
+	 * the randomly generated password
+	 */
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel();
 		
@@ -91,6 +99,12 @@ public class PasswordGeneratorGui extends JFrame {
 		return centerPanel;
 	}
 
+	/*
+	 * Creates the north panel that allows
+	 * the user to select the password length
+	 * then generate the password with the 
+	 * selected length
+	 */
 	private JPanel createNorthPanel() {
 		JPanel northPanel = new JPanel();
 		
