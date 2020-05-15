@@ -33,6 +33,7 @@ public class PasswordGeneratorGui extends JFrame {
 					PasswordGeneratorGui frame = new PasswordGeneratorGui();
 					frame.setTitle("Generate a password");
 					frame.setVisible(true);
+					frame.setResizable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -25,7 +25,7 @@ public class Generate {
 		int randNum;
 		char randChar;
 		for(int i = 0; i < length; i++) {
-			randNum = rand.nextInt(100) + 26;
+			randNum = rand.nextInt(94) + 32;
 			randChar = (char) randNum;
 			sb.append(randChar);
 		}
