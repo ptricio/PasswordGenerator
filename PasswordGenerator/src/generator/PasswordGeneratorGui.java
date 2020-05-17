@@ -15,6 +15,9 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+import java.awt.GridLayout;
+import javax.swing.SwingConstants;
 
 public class PasswordGeneratorGui extends JFrame {
 	private Generate g = new Generate();
@@ -22,6 +25,9 @@ public class PasswordGeneratorGui extends JFrame {
 	private int[] nums = {8,9,10,11,12,13,14,15,16};
 	private JPanel contentPane;
 	private JTextArea passField;
+	private JComboBox numberChar;
+	private JLabel passLength;
+	
 
 	/**
 	 * Launch the application.
@@ -46,19 +52,18 @@ public class PasswordGeneratorGui extends JFrame {
 	 */
 	public PasswordGeneratorGui() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 150);
+		setBounds(100, 100, 450, 175);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
 		JPanel northPanel = createNorthPanel();
-		
 		contentPane.add(northPanel, BorderLayout.NORTH);
 		
 		JPanel centerPanel = createCenterPanel();
-		
 		contentPane.add(centerPanel, BorderLayout.CENTER);
+		
 		
 		JPanel southPanel = createSouthPanel();
 		contentPane.add(southPanel, BorderLayout.SOUTH);
@@ -80,6 +85,15 @@ public class PasswordGeneratorGui extends JFrame {
 				
 			}
 		});
+		southPanel.setLayout(new GridLayout(0, 3, 0, 0));
+		
+		
+		JLabel passLbl = new JLabel("Password:");
+		passLbl.setHorizontalAlignment(SwingConstants.CENTER);
+		southPanel.add(passLbl);
+		
+		passField = new JTextArea();
+		southPanel.add(passField);
 		southPanel.add(cpyBtn);
 		return southPanel;
 	}
@@ -90,13 +104,36 @@ public class PasswordGeneratorGui extends JFrame {
 	 */
 	private JPanel createCenterPanel() {
 		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BorderLayout(0, 0));
 		
+		JPanel centerNorth = new JPanel();
+		centerNorth.setLayout(new GridLayout(0,3,0,0));
+		centerPanel.add(centerNorth,BorderLayout.NORTH);
 		
-		JLabel passLbl = new JLabel("Password:");
-		centerPanel.add(passLbl);
+		JPanel centerSouth = new JPanel();
+		centerSouth.setLayout(new GridLayout(1,0,0,0));
+		centerPanel.add(centerSouth,BorderLayout.CENTER);
 		
-		passField = new JTextArea();
-		centerPanel.add(passField);
+		JCheckBox chckbxCharacters = new JCheckBox("Characters");
+		centerNorth.add(chckbxCharacters);
+		
+		JCheckBox upperCaseCheck = new JCheckBox("Upper case");
+		centerNorth.add(upperCaseCheck);
+		
+		JCheckBox numChckBox = new JCheckBox("Numbers");
+		centerNorth.add(numChckBox);
+		
+		JButton generateBtn = new JButton("Generate Password");
+		centerSouth.add(generateBtn);
+		generateBtn.requestFocus();
+		generateBtn.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				passField.setText("");
+				String pass = g.generateRandomPass(nums[numberChar.getSelectedIndex()], upperCaseCheck.isSelected(), numChckBox.isSelected(), chckbxCharacters.isSelected());
+				passField.setText(pass);
+			}
+		});
 		return centerPanel;
 	}
 
@@ -108,23 +145,17 @@ public class PasswordGeneratorGui extends JFrame {
 	 */
 	private JPanel createNorthPanel() {
 		JPanel northPanel = new JPanel();
+		northPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		
-		JLabel passLength = new JLabel("Password Length:");
+		passLength = new JLabel("Password Length:");
 		northPanel.add(passLength);
 		
-		JComboBox numberChar = new JComboBox(length);
+		numberChar = new JComboBox(length);
 		northPanel.add(numberChar);
 		
-		JButton generateBtn = new JButton("Generate Password");
-		generateBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				passField.setText("");
-				String pass = g.generateRandomPass(nums[numberChar.getSelectedIndex()]);
-				passField.setText(pass);
-			}
-		});
-		northPanel.add(generateBtn);
+		
+			
 		return northPanel;
 	}
 
